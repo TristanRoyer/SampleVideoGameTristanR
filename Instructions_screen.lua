@@ -34,7 +34,7 @@ local Instructions
 local backButton
 
 local function MainMenuTransition( )       
-    composer.gotoScene( "main_menu", {effect = "flipFadeOutIn", time = 500})
+    composer.gotoScene( "main_menu", {effect = "fromTop", time = 500})
 end  
 
 -- The function called when the screen doesn't exist
@@ -72,9 +72,23 @@ function scene:create( event )
             x = display.contentWidth*1/8,
             y = display.contentHeight*7/8,
 
-            -- Insert the images here
-            defaultFile = "Images/Back Button Unpressed.png",
-            overFile = "Images/Back Button Pressed.png",
+            
+                -- Creating button shape
+                shape = "roundedRect",
+                width = display.contentWidth / 4,
+                height = 50,
+                cornerRadius = 20,
+                strokeWidth = 10,
+
+                -- Changing button colors (Default = not clicked, over = clicked)
+                fillColor = { default = { 1, 0.6, 0.2 }, over = { 0.5, 0.3, 0.1 } },
+                strokeColor = { default = { 0.75, 0, 0 }, over = { 0.5, 0, 0 } },
+                
+                -- Creating text on button
+                label = "Back", -- The text labeled on the button
+                labelColor = { default = { 1, 1, 1 }, over = { 1, 1, 1 } },
+                font = Arial,
+                fontSize = 40,
 
             -- When the button is released, call the Level1 screen transition function
             onRelease = MainMenuTransition         

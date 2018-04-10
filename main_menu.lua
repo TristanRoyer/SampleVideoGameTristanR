@@ -43,21 +43,21 @@ local instructionsbutton
 
 -- Creating Transition Function to Credits Page
 local function CreditsTransition( )       
-    composer.gotoScene( "credits_screen", {effect = "flipFadeOutIn", time = 500})
+    composer.gotoScene( "credits_screen", {effect = "flip", time = 500})
 end 
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition to Level1 Screen
 local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "zoomInOutFade", time = 1000})
+    composer.gotoScene( "level1_screen", {effect = "zoomInOutFadeRotate", time = 1000})
 end    
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 
 -- Creating Transition Function to Instructions Page
 local function InstructionsTransition( )       
-    composer.gotoScene( "Instructions_screen", {effect = "flipFadeOutIn", time = 500})
+    composer.gotoScene( "Instructions_screen", {effect = "fromLeft", time = 500})
 end 
 
 -----------------------------------------------------------------------------------------
@@ -96,12 +96,26 @@ function scene:create( event )
     playButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth/2,
-            y = display.contentHeight*7/8,
+            x = display.contentWidth*7/8,
+            y = display.contentHeight*2/8,
+            
 
-            -- Insert the images here
-            defaultFile = "Images/Start Button Unpressed.png",
-            overFile = "Images/Start Button Pressed.png",
+                -- Creating button shape
+                shape = "roundedRect",
+                width = display.contentWidth / 4,
+                height = 50,
+                cornerRadius = 20,
+                strokeWidth = 10,
+
+                -- Changing button colors (Default = not clicked, over = clicked)
+                fillColor = { default = { 1, 0.6, 0.2 }, over = { 0.5, 0.3, 0.1 } },
+                strokeColor = { default = { 0.75, 0, 0 }, over = { 0.5, 0, 0 } },
+                
+                -- Creating text on button
+                label = "Play", -- The text labeled on the button
+                labelColor = { default = { 1, 1, 1 }, over = { 1, 1, 1 } },
+                font = Arial,
+                fontSize = 40,
 
             -- When the button is released, call the Level1 screen transition function
             onRelease = Level1ScreenTransition          
@@ -114,27 +128,56 @@ function scene:create( event )
         {
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth*7/8,
-            y = display.contentHeight*7/8,
+            y = display.contentHeight*3/8,
+            width = 100,
+            height = 50,
+            
 
-            -- Insert the images here
-            defaultFile = "Images/Credits Button Unpressed.png",
-            overFile = "Images/Credits Button Pressed.png",
+                -- Creating button shape
+                shape = "roundedRect",
+                width = display.contentWidth / 4,
+                height = 50,
+                cornerRadius = 25,
+                strokeWidth = 10,
 
-            -- When the button is released, call the Credits transition function
-            onRelease = CreditsTransition
-        } ) 
+                -- Changing button colors (Default = not clicked, over = clicked)
+                fillColor = { default = { 0, 0.839, 0.004 }, over = { 1, 0.604, 0.084 } },
+                strokeColor = { default = { 0.75, 0, 0 }, over = { 0.5, 0, 0 } },
+                
+                -- Creating text on button
+                label = "Credits", -- The text labeled on the button
+                labelColor = { default = { 0, 1, 1 }, over = { 1, 1, 1 } },
+                font = Arial,
+                fontSize = 42,
+
+                -- Button Functions
+                onRelease = CreditsTransition  -- This function is executed when the touch of the button is Released
+            } ) 
+        
     
     -- ADD INSTRUCTIONS BUTTON WIDGET
     -- Creating Instructions button
     instructionsbutton = widget.newButton(
     { 
         -- Set its position on the screen relative to the screen size
-        x = display.contentWidth* 1/8,
-        y = display.contentHeight*7/8,
+        x = display.contentWidth* 7/8,
+        y = display.contentHeight*4/8,
+        -- Creating button shape
+                shape = "roundedRect",
+                width = display.contentWidth / 4,
+                height = 50,
+                cornerRadius = 20,
+                strokeWidth = 10,
 
-        --Insert the images here
-        defaultFile = "Images/Instructions button.png",
-        overFile = "Images/Instructions button pressed.png",
+                -- Changing button colors (Default = not clicked, over = clicked)
+                fillColor = { default = { 1, 0.2, 0.2 }, over = { 0.5, 0.1, 0.1 } },
+                strokeColor = { default = { 0.75, 0, 0 }, over = { 0.5, 0, 0 } },
+                
+                -- Creating text on button
+                label = "Instructions", -- The text labeled on the button
+                labelColor = { default = { 1, 1, 1 }, over = { 1, 1, 1 } },
+                font = Arial,
+                fontSize = 40,
 
         --When the button is released, call the Instructions transition function
          onRelease = InstructionsTransition
