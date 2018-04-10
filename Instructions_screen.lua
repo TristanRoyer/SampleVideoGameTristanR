@@ -21,48 +21,21 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "main_menu"
+sceneName = "Intructions_screen"
 
 -----------------------------------------------------------------------------------------
 
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
------------------------------------------------------------------------------------------
--- LOCAL VARIABLES
------------------------------------------------------------------------------------------
+--local variables
 
-local bkg_image
-local playButton
-local creditsButton
-local instructionsbutton
+local Instructions
+local backButton
 
------------------------------------------------------------------------------------------
--- LOCAL FUNCTIONS
------------------------------------------------------------------------------------------
-
--- Creating Transition Function to Credits Page
-local function CreditsTransition( )       
-    composer.gotoScene( "credits_screen", {effect = "flipFadeOutIn", time = 500})
-end 
-
------------------------------------------------------------------------------------------
-
--- Creating Transition to Level1 Screen
-local function Level1ScreenTransition( )
-    composer.gotoScene( "level1_screen", {effect = "zoomInOutFade", time = 1000})
-end    
-
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
-
--- Creating Transition Function to Instructions Page
-local function InstructionsTransition( )       
-    composer.gotoScene( "Instructions_screen", {effect = "flipFadeOutIn", time = 500})
-end 
-
------------------------------------------------------------------------------------------
--- GLOBAL SCENE FUNCTIONS
------------------------------------------------------------------------------------------
+local function MainMenuTransition( )       
+    composer.gotoScene( "main_menu", {effect = "flipFadeOutIn", time = 500})
+end  
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -75,85 +48,42 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImage("Images/main_menu.png")
-    bkg_image.x = display.contentCenterX
-    bkg_image.y = display.contentCenterY
-    bkg_image.width = display.contentWidth
-    bkg_image.height = display.contentHeight
+    Instructions  = display.newImage("Images/Instructions Screen.png")
+    Instructions.x = display.contentCenterX
+    Instructions.y = display.contentCenterY
+    Instructions.width = display.contentWidth
+    Instructions.height = display.contentHeight
 
 
     -- Associating display objects with this scene 
-    sceneGroup:insert( bkg_image )
+    sceneGroup:insert( Instructions )
 
     -- Send the background image to the back layer so all other objects can be on top
-    bkg_image:toBack()
+    Instructions:toBack()
 
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
 
     -- Creating Play Button
-    playButton = widget.newButton( 
+    backButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth/2,
+            x = display.contentWidth*1/8,
             y = display.contentHeight*7/8,
 
             -- Insert the images here
-            defaultFile = "Images/Start Button Unpressed.png",
-            overFile = "Images/Start Button Pressed.png",
+            defaultFile = "Images/Back Button Unpressed.png",
+            overFile = "Images/Back Button Pressed.png",
 
             -- When the button is released, call the Level1 screen transition function
-            onRelease = Level1ScreenTransition          
+            onRelease = MainMenuTransition         
         } )
 
-    -----------------------------------------------------------------------------------------
+sceneGroup:insert( backButton )
 
-    -- Creating Credits Button
-    creditsButton = widget.newButton( 
-        {
-            -- Set its position on the screen relative to the screen size
-            x = display.contentWidth*7/8,
-            y = display.contentHeight*7/8,
+end
 
-            -- Insert the images here
-            defaultFile = "Images/Credits Button Unpressed.png",
-            overFile = "Images/Credits Button Pressed.png",
-
-            -- When the button is released, call the Credits transition function
-            onRelease = CreditsTransition
-        } ) 
-    
-    -- ADD INSTRUCTIONS BUTTON WIDGET
-    -- Creating Instructions button
-    instructionsbutton = widget.newButton(
-    { 
-        -- Set its position on the screen relative to the screen size
-        x = display.contentWidth* 1/8,
-        y = display.contentHeight*7/8,
-
-        --Insert the images here
-        defaultFile = "Images/Instructions button.png",
-        overFile = "Images/Instructions button pressed.png",
-
-        --When the button is released, call the Instructions transition function
-         onRelease = InstructionsTransition
-         } )
-
-    -----------------------------------------------------------------------------------------
-
-    -- Associating button widgets with this scene
-    sceneGroup:insert( playButton )
-    sceneGroup:insert( creditsButton )
-    sceneGroup:insert( instructionsbutton )
-    
-    -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
-
-end -- function scene:create( event )   
-
-
-
------------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to appear on screen
 function scene:show( event )
@@ -228,11 +158,9 @@ end -- function scene:destroy( event )
 -----------------------------------------------------------------------------------------
 
 -- Adding Event Listeners
-scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )
-
------------------------------------------------------------------------------------------
+scene:addEventListener( "create", scene2 )
+scene:addEventListener( "show", scene2 )
+scene:addEventListener( "hide", scene2 )
+scene:addEventListener( "destroy", scene2 )
 
 return scene
